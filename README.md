@@ -77,11 +77,11 @@ git clone https://github.com/Turkii17/Disaster-Response-Pipeline-Project-.git
 ## Running the Program
 1. Execute the ETL pipeline to clean and store processed data in the database:
 ```
-python process_data.py disaster_messages.csv disaster_categories.csv disaster_response_db.db
+python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db
 ```
 2. Run the ML pipeline to load data, train the classifier, and save the model:
 ```
-python train_classifier.py disaster_response_db.db classifier.pkl
+python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl
 ```
 3. Launch the web app by running the following command in the app's directory:
 ```
