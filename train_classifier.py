@@ -27,6 +27,23 @@ from sklearn.feature_extraction.text import TfidfTransformer, CountVectorizer
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.base import BaseEstimator,TransformerMixin
 
+class StartingVerbExtractor(BaseEstimator, TransformerMixin):
+
+    def starting_verb(self, text):
+        sentence_list = nltk.sent_tokenize(text)
+        for sentence in sentence_list:
+            pos_tags = nltk.pos_tag(tokenize(sentence))
+            first_word, first_tag = pos_tags[0]
+            if first_tag in ['VB', 'VBP'] or first_word == 'RT':
+                return 1
+        return 0
+
+    def fit(self, x, y=None):
+        return self
+
+    def transform(self, X):
+        X_tagged = pd.Series(X).apply(self.starting_verb)
+        return pd.DataFrame(X_tagged)
 
 def load_data_from_db(database_filepath):
     engine = create_engine('sqlite:///'+database_filepath)
@@ -74,38 +91,8 @@ def tokenize(text, url_placeholder="urlplaceholder"):
     # Generate a list of clean tokens
     clean_tokens = [lemmatizer.lemmatize(word).lower().strip() for word in tokens]
     return clean_tokens
-
-# Create a custom transformer to extract the initial verb of a sentence
-class StartingVerbExtractor(BaseEstimator, TransformerMixin):
-    """
-    Custom Transformer for Extracting Starting Verbs
-    
-    This transformer identifies the initial verb in a sentence,
-    creating a new feature for a machine learning classifier.
-    """
-
-    def starting_verb(self, text):
-        sentences = nltk.sent_tokenize(text)
-        for sentence in sentences:
-            pos_tags = nltk.pos_tag(tokenize(sentence))
-            first_word, first_tag = pos_tags[0]
-            if first_tag in ['VB', 'VBP'] or first_word == 'RT':
-                return True
-        return False
-
-    # As a transformer, the fit method can simply return self 
-    def fit(self, X, y=None):
-        return self
-
-    def transform(self, X):
-        X_tagged = pd.Series(X).apply(self.starting_verb)
-        return pd.DataFrame(X_tagged)
     
     
-
-
-
-
 
 
 def build_pipeline():
@@ -118,8 +105,19 @@ def build_pipeline():
         ('starting_verb_extraction', StartingVerbExtractor())
     ])),
     ('classifier', MultiOutputClassifier(AdaBoostClassifier()))
-])
-    return pipeline
+    
+    ])
+    parameters = {
+        'clf__estimator__learning_rate':[0.5, 1.0],
+        'clf__estimator__n_estimators':[10,20]
+    
+    }
+        
+    cv = GridSearchCV(pipeline, param_grid=parameters, cv=5, n_jobs=-1, verbose=3) 
+
+    return cv
+  
+
 
 def multioutput_fscore(labels_true, labels_pred, beta=1):
     """
