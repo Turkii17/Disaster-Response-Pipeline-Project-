@@ -80,8 +80,7 @@ def index():
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
     graphs = [
-        # GRAPH 1 - genre graph
-         {
+        {
             'data': [
                 Bar(
                     x=genre_names,
@@ -99,7 +98,6 @@ def index():
                 }
             }
         },
-            # GRAPH 2 - category graph    
         {
             'data': [
                 Bar(
