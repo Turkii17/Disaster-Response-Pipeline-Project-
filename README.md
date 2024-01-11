@@ -46,7 +46,7 @@ Ensure you have the following dependencies installed:
 ## Installation
 Clone the repository:
 ```
-git clone https://github.com/Turkii17/udacity-disaster-response-pipeline.git
+git clone https://github.com/Turkii17/Disaster-Response-Pipeline-Project-.git
 ```
 
 
