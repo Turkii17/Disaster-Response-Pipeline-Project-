@@ -6,9 +6,10 @@
 3. [Getting Started](#getting-started)
 4. [Installation](#installation)
 5. [Running the Program](#running-the-program)
-6. [Additional Resources](#additional-resources)
-7. [License](#license)
-8. [Credits](#credits)
+6. [Files Description](#files-description)
+7. [Additional Resources](#additional-resources)
+8. [License](#license)
+9. [Credits](#credits)
 
 ## Overview
 Welcome to the Disaster Response Project! As part of the Udacity Data Science Nanodegree Program in collaboration with Figure Eight, this project focuses on developing a Natural Language Processing (NLP) model for real-time categorization of messages during disaster events.
@@ -65,6 +66,27 @@ python run.py
 ```
 4. Access the web app at http://0.0.0.0:3000/.
 
+## Files Description
+### Web App Templates:
+* `go.html`: an html file for the web app
+* `master.html`: another html file for the web app
+  
+### ETL Pipeline Script:
+
+* `process_data.py`
+Description: Handles Extract, Transform, and Load (ETL) processes.
+Performs data cleaning, feature extraction, and stores data in a SQLite database (disaster_response_db.db).
+
+### Machine Learning Pipeline Script:
+
+* `train_classifier.py`
+Description: Implements a machine learning pipeline.
+Loads data, trains a classifier, and saves the trained model as a .pkl file for future use.
+
+### Web App Launcher Script:
+
+* `run.py`
+Description: Launches the Flask web app used to classify disaster messages.
 
 ## Additional Resources
 For a deeper understanding of the model, explore the provided Jupyter notebooks in the **'data'** and **'models'** folders:
