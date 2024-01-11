@@ -46,18 +46,18 @@ Ensure you have the following dependencies installed:
 ## Installation
 Clone the repository:
 ```
-git clone https://github.com/canaveensetia/udacity-disaster-response-pipeline.git
+git clone https://github.com/Turkii17/udacity-disaster-response-pipeline.git
 ```
 
 
 ## Running the Program
 1. Execute the ETL pipeline to clean and store processed data in the database:
 ```
-python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/disaster_response_db.db
+python process_data.py disaster_messages.csv disaster_categories.csv disaster_response_db.db
 ```
 2. Run the ML pipeline to load data, train the classifier, and save the model:
 ```
-python models/train_classifier.py data/disaster_response_db.db models/classifier.pkl
+python train_classifier.py disaster_response_db.db classifier.pkl
 ```
 3. Launch the web app by running the following command in the app's directory:
 ```
