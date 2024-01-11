@@ -87,7 +87,7 @@ python train_classifier.py disaster_response_db.db classifier.pkl
 ```
 python run.py
 ```
-4. Access the web app at http://0.0.0.0:3000/.
+4. Access the web app at http://0.0.0.0:3001/.
 
 ## Files Description
 ### Web App Templates:
