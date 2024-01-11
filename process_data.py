@@ -48,6 +48,14 @@ def clean_categories_data(df):
     # Drop duplicates
     df.drop_duplicates(inplace=True)
 
+    # Drop the 'child_alone' column as it contains only 0 (ZERO) values, as revealed by our Jupyter Notebook analysis.
+    df = df.drop('child_alone', axis=1)
+    
+    # After analyzing our Jupyter Notebook, we observed that the 'related' column has a maximum value of 2, which might be an error.
+    # To address this, we will replace any instances of '2' with '1' in the 'related' column.
+    df['related'] = df['related'].map(lambda x: 1 if x==2 else x)
+
+
     return df
 
 def save_data_to_db(df, database_filename):
